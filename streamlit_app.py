@@ -233,7 +233,7 @@ else:
         "Среди районов с высоким доходом прибрежные категории в среднем дороже внутренних."
     )
 
-st.header("API Demo / Демонстрация API")
+st.header("FastAPI Backend / FastAPI часть")
 if API_URL:
     with st.form("new_record_form"):
         st.subheader("Create a new housing record / Добавить запись")
@@ -263,6 +263,14 @@ if API_URL:
     st.caption(f"FastAPI URL: {API_URL}")
 else:
     st.write(
-        "The FastAPI part is included in `api.py`. For the online Streamlit page, the report works without "
-        "starting the API. If the API is deployed separately, set the `API_URL` environment variable."
+        "The project also includes a FastAPI backend in `api.py`. It provides `GET /housing`, "
+        "`POST /housing` and `GET /stats` endpoints."
+    )
+    st.write(
+        "In this online Streamlit version, the analytical report works directly with the dataset. "
+        "The API can be launched locally or deployed separately."
+    )
+    st.write(
+        "В проекте также есть FastAPI backend в файле `api.py`. Онлайн-отчет работает напрямую "
+        "с датасетом, а API можно запустить локально или развернуть отдельно."
     )
