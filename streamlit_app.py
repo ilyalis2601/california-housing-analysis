@@ -104,6 +104,15 @@ filtered = df[
     & df["median_house_value"].between(*value_range)
 ]
 
+if filtered.empty:
+    st.warning(
+        "No rows match the selected filters. Please widen the income or house value range."
+    )
+    st.write(
+        "По выбранным фильтрам строк нет. Расширьте диапазон дохода или стоимости жилья."
+    )
+    st.stop()
+
 st.header("Descriptive Statistics / Описательная статистика")
 st.dataframe(descriptive_statistics(filtered), width="stretch")
 
@@ -131,10 +140,13 @@ left.plotly_chart(
     width="stretch",
 )
 corr = filtered[NUMERIC_COLUMNS].corr(numeric_only=True)
-right.plotly_chart(
-    px.imshow(corr, text_auto=".2f", aspect="auto", title="Correlation Heatmap"),
-    width="stretch",
-)
+if len(filtered) > 1:
+    right.plotly_chart(
+        px.imshow(corr, text_auto=".2f", aspect="auto", title="Correlation Heatmap"),
+        width="stretch",
+    )
+else:
+    right.info("Correlation heatmap needs at least two rows.")
 
 st.header("Detailed Overview / Детальный обзор")
 overview = grouped_overview(filtered)
@@ -204,19 +216,22 @@ st.write(
 
 high_income = filtered[filtered["income_group"].astype(str) == "high"]
 h2 = high_income[high_income["ocean_proximity"].isin(["INLAND", "<1H OCEAN", "NEAR OCEAN", "NEAR BAY"])]
-st.plotly_chart(
-    px.box(
-        h2,
-        x="ocean_proximity",
-        y="median_house_value",
-        title="H2: High-Income Districts by Location",
-    ),
-    width="stretch",
-)
-st.write(
-    "H2 result: among high-income districts, coastal groups are usually more expensive than INLAND. "
-    "Среди районов с высоким доходом прибрежные категории в среднем дороже внутренних."
-)
+if h2.empty:
+    st.info("H2 needs high-income rows in the selected filters.")
+else:
+    st.plotly_chart(
+        px.box(
+            h2,
+            x="ocean_proximity",
+            y="median_house_value",
+            title="H2: High-Income Districts by Location",
+        ),
+        width="stretch",
+    )
+    st.write(
+        "H2 result: among high-income districts, coastal groups are usually more expensive than INLAND. "
+        "Среди районов с высоким доходом прибрежные категории в среднем дороже внутренних."
+    )
 
 st.header("API Demo / Демонстрация API")
 if API_URL:
