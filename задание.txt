@@ -1,0 +1,67 @@
+Project structure
+In the project you should get a dataset and perform some visualization and analysis on the data. It should be structured as a report, showing the steps you took and the information you got about the data.
+
+Your project should contain the following chapters:
+
+Abstract / Annotation. No more than 2 paragraphs outlining the main purpose and idea of the work and the distribution of contribution of each member of the team.
+Dataset description. What subject area is your data from? How many and what kind of fields are in the dataset? What can you say about the data quality: are there any missing values, inconsistent values, wrong data types, etc.? Choosing a composite dataset from several tables, and especially collecting data yourself, for example using parsing, will make your project more powerful.
+Descriptive statistics for at least 4 numerical fields. These statistics should include at least mean, median and standard deviation of the fields.
+Data cleanup. Remove rows with NaN, check that columns have the correct data type. Other steps might be needed depending on data. If your data is already clean, show that it’s clean.
+Plots for at least 4 numerical fields. Simple line plots, scatter plots, histograms, and other plots should give an idea of what the data looks like. Choose three different types of plots.
+At least 4 plots or outputs for a detailed overview. These should be presented in the form of comparisons: plotting several lines with different conditions on the same figure, printing statistics for subsets of data, plotting two graphs next to each other, etc.
+Data transformation. Modify data from other columns to make new columns. If you haven't had to do data cleanup, add at least two new columns. Otherwise, you may add just one.
+Hypothesis check. Come up with at least 2 hypotheses about your data, then plot the relevant figure and/or print the relevant statistics. Check whether your hypotheses were correct. The hypotheses should be more complex than comparing two subsets of data based on a single column. More details are provided below.
+Discussion. During each step make a small write-up explaining what you do and why. You don’t need to include speculation on underlying causes of your results.
+All plots should be done with the aid of Matplotlib or Seaborn or Pandas or Plotly.
+
+Pilots
+Provide a web interface to your project. Ideally, you should make your project accessible over the Internet. The whole project, including plots, explanations and text results, should be available in the web interface.
+
+Details
+Dataset
+The easiest place to look for datasets is probably kaggle.com. Select a dataset with at least 3 numeric fields. Preferably, this should not include categorical fields, however this is not a strict requirement. For example, “month”, “degree of education”, “rank in top 100” can be represented as ordered numbers, but these are categorical fields. “Age”, “cost”, “total distance in km”, “number of orders” are numeric fields.
+
+Data cleanup
+Check some basic statistics of your data. It should tell you whether you need to do data cleanup. For example, if you have NaNs in a few rows, you should probably remove those rows. Sometimes data is given in an inconsistent way, like numbers written as “1M+”, “10k+”, “1k+”. Convert such cases to numbers you can work with: “1000000”, “10000”, “1000”.
+
+If you end up doing data cleanup, you will have to do less data transformation.
+
+Overview
+Your notebook should follow a process of exploring the dataset. At first you should show some general ideas about what kind of data you’re dealing with. Outputting some statistics and making simple plots of all data are usually good ways of doing this.
+
+More detailed overview
+Then you should provide insights into potentially interesting relations in your data. For example, if a plot shows some data columns are correlated, you can compute the correlation. If you have categorical data, you can try looking at different categories separately. For example, “what is the median salary for workers with different levels of education”. If several columns seem related to each other, this is also where you can add a third level axis as color and try to show the relationship of three variables at once.
+
+Hypothesis checking
+At some points the insights you get become complicated. For example, “What is the correlation between salary and number of sales for employees of different education levels? Do people at all levels of education get fairly compensated for increasing the number of sales?” Make hypotheses in this format and test them by drawing figures and/or computing statistics.
+
+If you get the result “there is a change, but it’s quite small, so it’s not clear if it’s significant or not”, it’s totally fine.
+
+Another example: “Petrol cars with automatic transmission sold by a dealer have a higher price than the ones sold by individuals”. Here “petrol” and “automatic transmission” are conditions on top of “dealer/individual”. Then you can plot histograms of prices and print their mean and median to see if your hypothesis was correct.
+
+Data transformation
+Add two new columns to the data frame and fill them with modified data from other columns. Some examples:
+
+“Sales divided by salary” can be worker efficiency.
+If you have both money and years, you can make money inflation-adjusted.
+For data containing text data that can be ordered, you can convert it to numbers. For example, ratings in text form — “bad, average, good”, education level — “high school, bachelor’s degree, master’s degree, etc.” can become “1, 2, 3, 4...”.
+You may also convert between units: ounces to ml, kilometers to miles, Celsius to Fahrenheit, etc.
+If you did something similar in data cleanup, add only one column here.
+
+Discussion
+Include notes about your hypotheses and the information you can see in your data. Explain in words what can be seen in the images and statistics. You don’t need to speculate on the causes of the results you get, just explain the results themselves.
+
+For example: “Here is a scatter plot comparing car prices and the number of kilometers the cars have driven. There is a downward trend, meaning that as mileage increases, the price decreases.”
+
+Your project page is a report. The final version should contain only the relevant calculations and present them, so that it’s clear what kind of data you’re working with, what insights you’re showing, what your hypotheses are and what results you got after testing them.
+
+Web interface (Streamlit)*
+Pilot students should set up a web interface to the project with the aid of Streamlit and using FastAPI as REST API. For non-pilot students REST API is optional for bonuses.
+
+REST API should include at least 1 GET method with not less than 2 arguments for obtaining data from the dataset, for example pagination or filter, and at least 1 POST method for creating a new instance of your dataset.
+
+Additionally, you can use Telegram bot as WebApp, form handler, notifier when a new instance is added, or any other convenient feature for working with your dataset.
+
+The Streamlit project should be available through the web interface. A Streamlit page should be equivalent to the Jupyter Notebook. The web pages should contain all the information you would otherwise put into a notebook.
+
+The Telegram bot should contain a menu with several pages where you’re able to get any part of the project.

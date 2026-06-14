@@ -1,0 +1,12 @@
+pandas
+numpy
+matplotlib
+seaborn
+plotly
+streamlit
+fastapi
+uvicorn
+pydantic
+jupyter
+nbconvert
+requests

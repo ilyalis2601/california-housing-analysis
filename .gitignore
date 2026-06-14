@@ -1,0 +1,8 @@
+.venv/
+__pycache__/
+*.pyc
+*.log
+.ipynb_checkpoints/
+data/new_housing_records.csv
+final/
+other_files/
